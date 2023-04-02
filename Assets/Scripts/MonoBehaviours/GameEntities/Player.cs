@@ -1,5 +1,6 @@
 using System;
 using Events;
+using Factories;
 using UnityEngine;
 
 namespace MonoBehaviours.GameEntities
@@ -10,12 +11,23 @@ namespace MonoBehaviours.GameEntities
         [SerializeField] private float rotationSpeed = 90f;
         [SerializeField] private float thrustersForce = 10f;
         [SerializeField] private float maxVelocity = 10f;
+        [SerializeField] private Transform bulletSpawnPoint;
         
         private Rigidbody2D _rigidbody2D;
 
         private void Awake()
         {
             _rigidbody2D = GetComponent<Rigidbody2D>();
+        }
+
+        private void Start()
+        {
+            PlayerInputs.Instance.OnShootButtonPressed += Shoot;
+        }
+        
+        private void OnDestroy()
+        {
+            PlayerInputs.Instance.OnShootButtonPressed -= Shoot;
         }
 
         private void Update()
@@ -58,6 +70,11 @@ namespace MonoBehaviours.GameEntities
             {
                 _rigidbody2D.angularVelocity = 0f;
             }
+        }
+
+        private void Shoot()
+        {
+            BulletsFactory.Instance.CreatePlayerBullet(transform.rotation, bulletSpawnPoint.position);
         }
 
         public void Die()

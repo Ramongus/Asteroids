@@ -34,5 +34,15 @@ public class Asteroid : MonoBehaviour
         {
             player.Die();
         }
+        if(col.TryGetComponent(out Bullet bullet))
+        {
+            Explode();
+            bullet.Crash();
+        }
+    }
+
+    public void Explode()
+    {
+        Destroy(gameObject);
     }
 }

@@ -7,7 +7,7 @@ namespace MonoBehaviours.GameEntities
     public class Player : MonoBehaviour
     {
         [SerializeField] private PlayerInputs playerInputs;
-        [SerializeField] private float rotationSpeed = 1f;
+        [SerializeField] private float rotationSpeed = 90f;
         
         private Rigidbody2D _rigidbody2D;
 
@@ -19,7 +19,6 @@ namespace MonoBehaviours.GameEntities
         private void Update()
         {
             Rotate();
-            playerInputs.GetMovementVector();
         }
 
         private void Rotate()
@@ -27,11 +26,15 @@ namespace MonoBehaviours.GameEntities
             var playerDirection = playerInputs.GetMovementVector();
             if (playerDirection.x > 0f)
             {
-                _rigidbody2D.angularVelocity = rotationSpeed;
+                _rigidbody2D.angularVelocity = rotationSpeed * -1;
             }
             else if (playerDirection.x < 0f)
             {
-                _rigidbody2D.angularVelocity = rotationSpeed * -1;
+                _rigidbody2D.angularVelocity = rotationSpeed;
+            }
+            else
+            {
+                _rigidbody2D.angularVelocity = 0f;
             }
         }
     }

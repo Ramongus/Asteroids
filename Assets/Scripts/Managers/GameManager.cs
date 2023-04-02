@@ -1,5 +1,7 @@
+using Enums;
 using Events;
 using Factories;
+using Managers;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -35,7 +37,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < initialAsteroids + extraAsteroidsPerWave * _currentWave; i++)
         {
-            AsteroidsFactory.Instance.CreateAsteroid();
+            var asteroid = AsteroidsFactory.Instance.CreateAsteroid(AsteroidsSize.Big);
+            asteroid.transform.position = WorldBoundsManager.Instance.RandomWorldEdgePosition();
         }
     }
 }

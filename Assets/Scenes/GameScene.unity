@@ -440,7 +440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75902d0e89846c04c852c21613daaf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroidPrefab: {fileID: 2527773323323261591, guid: 6a23e23a9f3322143a45aa0c954023c5, type: 3}
+  _asteroidSmallSizePrefab: {fileID: 7819017444308096366, guid: 409777bfaa7e54745b0dd9af91391e9c, type: 3}
+  _asteroidMediumSizePrefab: {fileID: 2943075377098959847, guid: d1330b7de9da7434e8da6dc5ecd1761f, type: 3}
+  _asteroidBigSizePrefab: {fileID: 4939197232962872236, guid: 9df669c62e26174489eb794b54081610, type: 3}
   _asteroidContainer: {fileID: 1756890221}
 --- !u!1 &928872440
 GameObject:

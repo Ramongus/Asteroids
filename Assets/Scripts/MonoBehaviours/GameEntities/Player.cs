@@ -8,6 +8,8 @@ namespace MonoBehaviours.GameEntities
     {
         [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private float rotationSpeed = 90f;
+        [SerializeField] private float thrustersForce = 10f;
+        [SerializeField] private float maxVelocity = 10f;
         
         private Rigidbody2D _rigidbody2D;
 
@@ -18,7 +20,27 @@ namespace MonoBehaviours.GameEntities
 
         private void Update()
         {
+            MoveForward();
             Rotate();
+        }
+
+        private void MoveForward()
+        {
+            var playerDirection = playerInputs.GetMovementVector();
+            if (playerDirection.y > 0)
+            {
+                _rigidbody2D.AddForce(transform.right * thrustersForce);
+            }
+            ClampVelocity();
+        }
+
+        private void ClampVelocity()
+        {
+            var velocity = _rigidbody2D.velocity;
+            if (velocity.magnitude > maxVelocity)
+            {
+                _rigidbody2D.velocity = velocity.normalized * maxVelocity;
+            }
         }
 
         private void Rotate()

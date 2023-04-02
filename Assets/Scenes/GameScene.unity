@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 204424829}
   - component: {fileID: 204424828}
   - component: {fileID: 204424827}
+  - component: {fileID: 204424830}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -154,7 +155,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputs: {fileID: 1205639954}
-  rotationSpeed: 90
+  rotationSpeed: 180
+  thrustersForce: 1
+  maxVelocity: 10
 --- !u!50 &204424828
 Rigidbody2D:
   serializedVersion: 4
@@ -168,7 +171,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -192,6 +195,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &204424830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204424826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38d6ad0c6b44a74874766512b638959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &237833174
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,8 +652,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1861512027f2924fbd8384565e99dd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xMin: -10.6
-  xMax: 10.6
+  xMin: -8.9
+  xMax: 8.9
   yMin: -5
   yMax: 5
 --- !u!1 &1756890221

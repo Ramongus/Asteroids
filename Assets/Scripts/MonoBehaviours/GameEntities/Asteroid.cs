@@ -1,5 +1,8 @@
 using System;
+using Enums;
+using Factories;
 using MonoBehaviours.GameEntities;
+using Repositories;
 using UnityEngine;
 using Utilities;
 using Random = UnityEngine.Random;
@@ -12,6 +15,9 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private float minRotationSpeed = 1f;
     [SerializeField] private float maxRotationSpeed = 5f;
     [SerializeField] private float points = 1f;
+    [SerializeField] private bool splitOnDestroy = true;
+    [SerializeField] private int splitCount = 2;
+    [SerializeField] private AsteroidsSize splitSize;
     
     private Vector3 _direction;
     private float _speed;
@@ -41,8 +47,17 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    public void Explode()
+    private void Explode()
     {
+        if (splitOnDestroy)
+        {
+            for (int i = 0; i < splitCount; i++)
+            {
+                var asteroid = AsteroidsFactory.Instance.CreateAsteroid(splitSize);
+                asteroid.transform.position = transform.position;
+            }
+        }
+        AsteroidsRepository.Instance.RemoveAsteroid(this);
         Destroy(gameObject);
     }
 }

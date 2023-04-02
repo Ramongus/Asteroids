@@ -2,6 +2,7 @@ using Enums;
 using Events;
 using Factories;
 using Managers;
+using Repositories;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,11 +17,13 @@ public class GameManager : MonoBehaviour
         SpawnAsteroids();
         SpawnPlayer();
         PlayerEvents.OnPlayerDeath += OnPlayerDeath;
+        AsteroidsRepository.Instance.OnNoMoreAsteroids += NextWave;
     }
 
     private void OnDestroy()
     {
         PlayerEvents.OnPlayerDeath -= OnPlayerDeath;
+        AsteroidsRepository.Instance.OnNoMoreAsteroids -= NextWave;
     }
 
     private void SpawnPlayer()
@@ -40,6 +43,13 @@ public class GameManager : MonoBehaviour
             var asteroid = AsteroidsFactory.Instance.CreateAsteroid(AsteroidsSize.Big);
             asteroid.transform.position = WorldBoundsManager.Instance.RandomWorldEdgePosition();
         }
+    }
+
+    private void NextWave()
+    {
+        Debug.Log("Next wave!");
+        _currentWave++;
+        SpawnAsteroids();
     }
 }
 

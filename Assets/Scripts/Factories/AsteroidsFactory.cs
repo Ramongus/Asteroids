@@ -1,20 +1,21 @@
 using System;
 using Enums;
 using Managers;
+using Repositories;
 using UnityEngine;
 
 namespace Factories
 {
     public class AsteroidsFactory : SingletonMonoBehaviour<AsteroidsFactory>
     {
-        [SerializeField] private GameObject _asteroidSmallSizePrefab;
-        [SerializeField] private GameObject _asteroidMediumSizePrefab;
-        [SerializeField] private GameObject _asteroidBigSizePrefab;
+        [SerializeField] private Asteroid _asteroidSmallSizePrefab;
+        [SerializeField] private Asteroid _asteroidMediumSizePrefab;
+        [SerializeField] private Asteroid _asteroidBigSizePrefab;
         [SerializeField] private GameObject _asteroidContainer;
 
-        public GameObject CreateAsteroid(AsteroidsSize size)
+        public Asteroid CreateAsteroid(AsteroidsSize size)
         {
-            GameObject asteroid = null;
+            Asteroid asteroid = null;
             switch (size)
             {
                 case AsteroidsSize.Small:
@@ -37,6 +38,7 @@ namespace Factories
                     throw new Exception("No asteroid size found");
                 }
             }
+            AsteroidsRepository.Instance.AddAsteroid(asteroid);
             return asteroid;
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using Events;
 using UnityEngine;
 
 namespace MonoBehaviours.GameEntities
@@ -6,7 +7,6 @@ namespace MonoBehaviours.GameEntities
     [RequireComponent(typeof(Rigidbody2D))]
     public class Player : MonoBehaviour
     {
-        [SerializeField] private PlayerInputs playerInputs;
         [SerializeField] private float rotationSpeed = 90f;
         [SerializeField] private float thrustersForce = 10f;
         [SerializeField] private float maxVelocity = 10f;
@@ -26,7 +26,7 @@ namespace MonoBehaviours.GameEntities
 
         private void MoveForward()
         {
-            var playerDirection = playerInputs.GetMovementVector();
+            var playerDirection = PlayerInputs.Instance.GetMovementVector();
             if (playerDirection.y > 0)
             {
                 _rigidbody2D.AddForce(transform.right * thrustersForce);
@@ -45,7 +45,7 @@ namespace MonoBehaviours.GameEntities
 
         private void Rotate()
         {
-            var playerDirection = playerInputs.GetMovementVector();
+            var playerDirection = PlayerInputs.Instance.GetMovementVector();
             if (playerDirection.x > 0f)
             {
                 _rigidbody2D.angularVelocity = rotationSpeed * -1;
@@ -58,6 +58,12 @@ namespace MonoBehaviours.GameEntities
             {
                 _rigidbody2D.angularVelocity = 0f;
             }
+        }
+
+        public void Die()
+        {
+            Destroy(gameObject);
+            PlayerEvents.OnPlayerDeath?.Invoke();
         }
     }
 }

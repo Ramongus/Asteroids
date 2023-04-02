@@ -1,14 +1,16 @@
 using System;
+using Factories;
 using UnityEngine;
 
 namespace MonoBehaviours
 {
-    public class PlayerInputs : MonoBehaviour
+    public class PlayerInputs : SingletonMonoBehaviour<PlayerInputs>
     {
         private GameInputs _gameInputs;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _gameInputs = new GameInputs();
             _gameInputs.Enable();
         }

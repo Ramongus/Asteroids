@@ -1,5 +1,8 @@
+using System;
+using MonoBehaviours.GameEntities;
 using UnityEngine;
 using Utilities;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Asteroid : MonoBehaviour
@@ -23,5 +26,13 @@ public class Asteroid : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _rigidbody.velocity = _direction * _speed;
         _rigidbody.angularVelocity = _rotationSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.TryGetComponent(out Player player))
+        {
+            player.Die();
+        }
     }
 }

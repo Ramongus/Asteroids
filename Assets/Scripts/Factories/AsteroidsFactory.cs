@@ -1,27 +1,17 @@
+using Managers;
 using UnityEngine;
 
 namespace Factories
 {
-    public class AsteroidsFactory : MonoBehaviour
+    public class AsteroidsFactory : SingletonMonoBehaviour<AsteroidsFactory>
     {
         [SerializeField] private GameObject _asteroidPrefab;
         [SerializeField] private GameObject _asteroidContainer;
-        
-        public static AsteroidsFactory Instance { get; private set; }
-        
-        private void Awake()
-        {
-            if (Instance)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-        }
 
         public GameObject CreateAsteroid()
         {
             GameObject asteroid = Instantiate(_asteroidPrefab, _asteroidContainer.transform);
+            asteroid.transform.position = WorldBoundsManager.Instance.RandomWorldEdgePosition();
             return asteroid;
         }
     }

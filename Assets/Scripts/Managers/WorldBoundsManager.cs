@@ -1,3 +1,4 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace Managers
@@ -25,6 +26,32 @@ namespace Managers
             }
 
             Instance = this;
+        }
+        public Vector3 RandomWorldEdgePosition()
+        {
+            switch (Random.Range(0,4))
+            {
+                case 0:
+                {
+                    return new Vector3(xMin, Random.Range(yMin, yMax), 0);
+                }
+                case 1:
+                {
+                    return new Vector3(xMax, Random.Range(yMin, yMax), 0);
+                }
+                case 2:
+                {
+                    return new Vector3(Random.Range(xMin, xMax), yMin, 0);
+                }
+                case 3:
+                {
+                    return new Vector3(Random.Range(xMin, xMax), yMax, 0);
+                }
+                default:
+                {
+                    return Vector3.zero;
+                }
+            }
         }
 
         private void OnDrawGizmos()

@@ -9,7 +9,6 @@ namespace UI
         
         public void UpdateScore(int currentScore)
         {
-            Debug.Log($"View Updates score: {currentScore}");
             scoreLabel.text = currentScore.ToString();
         }
     }

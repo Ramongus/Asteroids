@@ -22,7 +22,6 @@ namespace Managers
         [SerializeField] private ScoreUI scoreUI;
         [SerializeField] private ScoreConfigurationSO scoreConfiguration;
     
-        private int _currentWave = 0;
         private ScoreSystem _scoreSystem;
         private WaveSystem _waveSystem;
         private RespawnSystem _respawnSystem;

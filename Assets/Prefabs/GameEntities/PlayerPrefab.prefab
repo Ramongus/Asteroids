@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2909177967049751198}
   - component: {fileID: 2909177967049751194}
   - component: {fileID: 2909177967049751199}
+  - component: {fileID: 3017045064595353959}
   m_Layer: 0
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -86,9 +87,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2241031f8d9d45e0ae2b8e5ba6bfd846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 220
-  thrustersForce: 0.5
-  maxVelocity: 10
   bulletSpawnPoint: {fileID: 6381699756222002487}
 --- !u!114 &2909177967049751199
 MonoBehaviour:
@@ -102,6 +100,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38d6ad0c6b44a74874766512b638959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3017045064595353959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2909177967049751195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3878d6ef164d42ad9bf70284420608a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 220
+  thrustersForce: 0.5
+  maxVelocity: 10
 --- !u!1 &2909177967338742509
 GameObject:
   m_ObjectHideFlags: 0

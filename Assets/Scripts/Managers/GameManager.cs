@@ -3,32 +3,36 @@ using Events;
 using Factories;
 using Managers;
 using Repositories;
+using ScriptableObjects;
 using UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Waves settings")]
-    [SerializeField] private int initialAsteroids = 4;
-    [SerializeField] private int extraAsteroidsPerWave = 2;
+    [SerializeField] private WavesConfigurationSO wavesConfiguration;
     
     [Header("Score settings")]
     [SerializeField] private ScoreUI scoreUI;
-    [SerializeField] private int smallAsteroidScore = 3;
-    [SerializeField] private int mediumAsteroidScore = 2;
-    [SerializeField] private int bigAsteroidScore = 1;
+    [SerializeField] private ScoreConfigurationSO scoreConfiguration;
     
     private int _currentWave = 0;
-    private int _currentScore = 0;
+    private ScoreSystem _scoreSystem;
+    private WaveSystem _waveSystem;
+
+    private void Awake()
+    {
+        _scoreSystem = new ScoreSystem(scoreUI, scoreConfiguration);
+        _waveSystem = new WaveSystem(wavesConfiguration);
+    }
 
     private void Start()
     {
-        SpawnAsteroids();
         SpawnPlayer();
+        _waveSystem.AdvanceToNextWave();
         PlayerEvents.OnPlayerDeath += OnPlayerDeath;
         AsteroidsRepository.Instance.OnNoMoreAsteroids += NextWave;
         AsteroidsEvents.OnAsteroidDestroyed += OnAsteroidDestroyed;
-        scoreUI.UpdateScore(_currentScore);
     }
 
     private void OnDestroy()
@@ -50,35 +54,32 @@ public class GameManager : MonoBehaviour
 
     private void OnAsteroidDestroyed(AsteroidsSize asteroidsSize)
     {
-        switch (asteroidsSize)
-        {
-            case AsteroidsSize.Small:
-                _currentScore += smallAsteroidScore;
-                break;
-            case AsteroidsSize.Medium:
-                _currentScore += mediumAsteroidScore;
-                break;
-            case AsteroidsSize.Big:
-                _currentScore += bigAsteroidScore;
-                break;
-        }
-        scoreUI.UpdateScore(_currentScore);
+        _scoreSystem.UpdateScore(asteroidsSize);
+    }
+    
+    private void NextWave()
+    {
+        _waveSystem.AdvanceToNextWave();
+    }
+}
+
+public class WaveSystem
+{
+    private int _currentWave;
+    private readonly WavesConfigurationSO _wavesConfiguration;
+
+    public WaveSystem(WavesConfigurationSO wavesConfiguration)
+    {
+        _wavesConfiguration = wavesConfiguration;
     }
 
-    private void SpawnAsteroids()
+    public void AdvanceToNextWave()
     {
-        for (int i = 0; i < initialAsteroids + extraAsteroidsPerWave * _currentWave; i++)
+        _currentWave++;
+        for (int i = 0; i < _wavesConfiguration.FirstWaveAsteroidsCount + _wavesConfiguration.ExtraAsteroidsPerWave * (_currentWave - 1); i++)
         {
             var asteroid = AsteroidsFactory.Instance.CreateAsteroid(AsteroidsSize.Big);
             asteroid.transform.position = WorldBoundsManager.Instance.RandomWorldEdgePosition();
         }
     }
-
-    private void NextWave()
-    {
-        Debug.Log("Next wave!");
-        _currentWave++;
-        SpawnAsteroids();
-    }
 }
-

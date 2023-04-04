@@ -757,12 +757,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd6fb36d4dd889a4c8eca6c97e4c6377, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialAsteroids: 2
-  extraAsteroidsPerWave: 2
+  wavesConfiguration: {fileID: 11400000, guid: c23372d00b381574085112708ae6c074, type: 2}
   scoreUI: {fileID: 1626623977}
-  smallAsteroidScore: 3
-  mediumAsteroidScore: 2
-  bigAsteroidScore: 1
+  scoreConfiguration: {fileID: 11400000, guid: f136891bd4c88a243843cde8d50355a4, type: 2}
 --- !u!1 &943777600
 GameObject:
   m_ObjectHideFlags: 0

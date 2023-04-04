@@ -1,3 +1,5 @@
+using System;
+using Interfaces;
 using UnityEngine;
 
 namespace MonoBehaviours.GameEntities
@@ -15,9 +17,13 @@ namespace MonoBehaviours.GameEntities
             _rigidbody.velocity = transform.right * speed;
         }
 
-        public void Crash()
+        private void OnTriggerEnter2D(Collider2D col)
         {
-            Destroy(gameObject);
+            if (col.TryGetComponent(out IDamageableByBullet damageable))
+            {
+                damageable.TakeDamage();
+                Destroy(gameObject);
+            }
         }
     }
 }

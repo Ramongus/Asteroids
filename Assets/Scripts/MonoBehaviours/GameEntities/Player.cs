@@ -1,11 +1,12 @@
 using Events;
 using Factories;
+using Interfaces;
 using UnityEngine;
 
 namespace MonoBehaviours.GameEntities
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IDamageableByAsteroids
     {
         [SerializeField] private float rotationSpeed = 90f;
         [SerializeField] private float thrustersForce = 10f;
@@ -33,6 +34,11 @@ namespace MonoBehaviours.GameEntities
         {
             MoveForward();
             Rotate();
+        }
+
+        public void TakeDamage()
+        {
+            Die();
         }
 
         private void MoveForward()
@@ -76,7 +82,7 @@ namespace MonoBehaviours.GameEntities
             BulletsFactory.Instance.CreatePlayerBullet(transform.rotation, bulletSpawnPoint.position);
         }
 
-        public void Die()
+        private void Die()
         {
             Destroy(gameObject);
             PlayerEvents.OnPlayerDeath?.Invoke();

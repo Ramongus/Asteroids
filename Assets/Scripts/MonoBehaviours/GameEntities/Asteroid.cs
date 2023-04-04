@@ -1,6 +1,7 @@
 using Enums;
 using Events;
 using Factories;
+using Interfaces;
 using Repositories;
 using UnityEngine;
 using Utilities;
@@ -8,7 +9,7 @@ using Utilities;
 namespace MonoBehaviours.GameEntities
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Asteroid : MonoBehaviour
+    public class Asteroid : MonoBehaviour, IDamageableByBullet
     {
         [SerializeField] private float minSpeed = 1f;
         [SerializeField] private float maxSpeed = 5f;
@@ -36,15 +37,15 @@ namespace MonoBehaviours.GameEntities
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (col.TryGetComponent(out Player player))
+            if (col.TryGetComponent(out IDamageableByAsteroids damageable))
             {
-                player.Die();
+                damageable.TakeDamage();
             }
-            if(col.TryGetComponent(out Bullet bullet))
-            {
-                Explode();
-                bullet.Crash();
-            }
+        }
+
+        public void TakeDamage()
+        {
+            Explode();
         }
 
         private void Explode()

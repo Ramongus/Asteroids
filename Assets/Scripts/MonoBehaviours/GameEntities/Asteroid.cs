@@ -1,5 +1,6 @@
 using System;
 using Enums;
+using Events;
 using Factories;
 using MonoBehaviours.GameEntities;
 using Repositories;
@@ -14,9 +15,9 @@ public class Asteroid : MonoBehaviour
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float minRotationSpeed = 1f;
     [SerializeField] private float maxRotationSpeed = 5f;
-    [SerializeField] private float points = 1f;
     [SerializeField] private bool splitOnDestroy = true;
     [SerializeField] private int splitCount = 2;
+    [SerializeField] private AsteroidsSize mySize;
     [SerializeField] private AsteroidsSize splitSize;
     
     private Vector3 _direction;
@@ -58,6 +59,7 @@ public class Asteroid : MonoBehaviour
             }
         }
         AsteroidsRepository.Instance.RemoveAsteroid(this);
+        AsteroidsEvents.OnAsteroidDestroyed?.Invoke(mySize);
         Destroy(gameObject);
     }
 }

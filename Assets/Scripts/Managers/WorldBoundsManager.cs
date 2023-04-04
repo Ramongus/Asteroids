@@ -54,7 +54,7 @@ namespace Managers
             }
         }
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(new Vector3(xMax, yMin, 0), new Vector3(xMax, yMax, 0));

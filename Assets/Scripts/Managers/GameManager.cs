@@ -7,10 +7,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Waves settings")]
     [SerializeField] private int initialAsteroids = 4;
     [SerializeField] private int extraAsteroidsPerWave = 2;
     
+    [Header("Score settings")]
+    [SerializeField] private int smallAsteroidScore = 3;
+    [SerializeField] private int mediumAsteroidScore = 2;
+    [SerializeField] private int bigAsteroidScore = 1;
+    
     private int _currentWave = 0;
+    private int _currentScore = 0;
 
     private void Start()
     {
@@ -18,12 +25,14 @@ public class GameManager : MonoBehaviour
         SpawnPlayer();
         PlayerEvents.OnPlayerDeath += OnPlayerDeath;
         AsteroidsRepository.Instance.OnNoMoreAsteroids += NextWave;
+        AsteroidsEvents.OnAsteroidDestroyed += OnAsteroidDestroyed;
     }
 
     private void OnDestroy()
     {
         PlayerEvents.OnPlayerDeath -= OnPlayerDeath;
         AsteroidsRepository.Instance.OnNoMoreAsteroids -= NextWave;
+        AsteroidsEvents.OnAsteroidDestroyed -= OnAsteroidDestroyed;
     }
 
     private void SpawnPlayer()
@@ -34,6 +43,23 @@ public class GameManager : MonoBehaviour
     private void OnPlayerDeath()
     {
         Debug.Log("Player died,  Imma respawn him");
+    }
+
+    private void OnAsteroidDestroyed(AsteroidsSize asteroidsSize)
+    {
+        switch (asteroidsSize)
+        {
+            case AsteroidsSize.Small:
+                _currentScore += smallAsteroidScore;
+                break;
+            case AsteroidsSize.Medium:
+                _currentScore += mediumAsteroidScore;
+                break;
+            case AsteroidsSize.Big:
+                _currentScore += bigAsteroidScore;
+                break;
+        }
+        Debug.Log($"Current score: {_currentScore}");
     }
 
     private void SpawnAsteroids()

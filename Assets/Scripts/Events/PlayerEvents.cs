@@ -2,7 +2,7 @@ using System;
 
 namespace Events
 {
-    public class PlayerEvents
+    public static class PlayerEvents
     {
         public static Action OnPlayerDeath;
     }

@@ -1,6 +1,7 @@
 using System;
 using Enums;
-using Managers;
+using MonoBehaviours;
+using MonoBehaviours.GameEntities;
 using Repositories;
 using UnityEngine;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Factories;
+using MonoBehaviours;
+using MonoBehaviours.GameEntities;
 
 namespace Repositories
 {

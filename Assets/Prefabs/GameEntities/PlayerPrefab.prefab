@@ -86,8 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2241031f8d9d45e0ae2b8e5ba6bfd846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 180
-  thrustersForce: 1
+  rotationSpeed: 220
+  thrustersForce: 0.5
   maxVelocity: 10
   bulletSpawnPoint: {fileID: 6381699756222002487}
 --- !u!114 &2909177967049751199

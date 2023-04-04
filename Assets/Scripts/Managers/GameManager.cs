@@ -3,6 +3,7 @@ using Events;
 using Factories;
 using Managers;
 using Repositories;
+using UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int extraAsteroidsPerWave = 2;
     
     [Header("Score settings")]
+    [SerializeField] private ScoreUI scoreUI;
     [SerializeField] private int smallAsteroidScore = 3;
     [SerializeField] private int mediumAsteroidScore = 2;
     [SerializeField] private int bigAsteroidScore = 1;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         PlayerEvents.OnPlayerDeath += OnPlayerDeath;
         AsteroidsRepository.Instance.OnNoMoreAsteroids += NextWave;
         AsteroidsEvents.OnAsteroidDestroyed += OnAsteroidDestroyed;
+        scoreUI.UpdateScore(_currentScore);
     }
 
     private void OnDestroy()
@@ -59,7 +62,7 @@ public class GameManager : MonoBehaviour
                 _currentScore += bigAsteroidScore;
                 break;
         }
-        Debug.Log($"Current score: {_currentScore}");
+        scoreUI.UpdateScore(_currentScore);
     }
 
     private void SpawnAsteroids()

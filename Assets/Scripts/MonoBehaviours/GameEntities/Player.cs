@@ -5,26 +5,26 @@ using UnityEngine;
 
 namespace MonoBehaviours.GameEntities
 {
-    [RequireComponent(typeof(IPlayerMovementBehaviour))]
+    [RequireComponent(typeof(IPlayerMovementBehaviour), typeof(IWeapon))]
     public class Player : MonoBehaviour, IDamageableByAsteroids
     {
-        [SerializeField] private Transform bulletSpawnPoint;
-        
         private IPlayerMovementBehaviour _playerMovementBehaviour;
+        private IWeapon _weapon;
 
         private void Awake()
         {
             _playerMovementBehaviour = GetComponent<IPlayerMovementBehaviour>();
-        }
-
-        private void Start()
-        {
-            PlayerInputs.Instance.OnShootButtonPressed += Shoot;
+            _weapon = GetComponent<IWeapon>();
         }
         
+        private void Start()
+        {
+            PlayerInputs.Instance.OnShootButtonPressed += UseWeapon;
+        }
+
         private void OnDestroy()
         {
-            PlayerInputs.Instance.OnShootButtonPressed -= Shoot;
+            PlayerInputs.Instance.OnShootButtonPressed -= UseWeapon;
         }
 
         private void Update()
@@ -37,9 +37,9 @@ namespace MonoBehaviours.GameEntities
             Die();
         }
 
-        private void Shoot()
+        private void UseWeapon()
         {
-            BulletsFactory.Instance.CreatePlayerBullet(transform.rotation, bulletSpawnPoint.position);
+            _weapon.Use();
         }
 
         private void Die()

@@ -27,9 +27,9 @@ namespace MonoBehaviours.GameEntities
             PlayerInputs.Instance.OnShootButtonPressed -= UseWeapon;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            _playerMovementBehaviour.Update();
+            _playerMovementBehaviour.UpdateMovement();
         }
 
         public void TakeDamage()

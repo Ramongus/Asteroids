@@ -18,12 +18,12 @@ namespace MonoBehaviours.PlayerMovementBehaviours
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public void Update()
+        public void UpdateMovement()
         {
             MoveForward();
             Rotate();
         }
-        
+
         private void MoveForward()
         {
             var playerDirection = PlayerInputs.Instance.GetMovementVector();

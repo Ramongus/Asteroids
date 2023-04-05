@@ -2,6 +2,6 @@ namespace Interfaces
 {
     public interface IPlayerMovementBehaviour
     {
-        void Update();
+        void UpdateMovement();
     }
 }

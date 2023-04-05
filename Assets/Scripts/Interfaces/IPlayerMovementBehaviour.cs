@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Interfaces
 {
     public interface IPlayerMovementBehaviour
     {
-        void UpdateMovement();
+        void UpdateMovement(Vector3 direction);
     }
 }

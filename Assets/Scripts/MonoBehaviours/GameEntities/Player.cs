@@ -1,3 +1,4 @@
+using System;
 using Events;
 using Factories;
 using Interfaces;
@@ -10,6 +11,7 @@ namespace MonoBehaviours.GameEntities
     {
         private IPlayerMovementBehaviour _playerMovementBehaviour;
         private IWeapon _weapon;
+        private Vector3 _playerMovementDirection;
 
         private void Awake()
         {
@@ -27,9 +29,15 @@ namespace MonoBehaviours.GameEntities
             PlayerInputs.Instance.OnShootButtonPressed -= UseWeapon;
         }
 
+
+        private void Update()
+        {
+            _playerMovementDirection = PlayerInputs.Instance.GetMovementVector();
+        }
+
         private void FixedUpdate()
         {
-            _playerMovementBehaviour.UpdateMovement();
+            _playerMovementBehaviour.UpdateMovement(_playerMovementDirection);
         }
 
         public void TakeDamage()

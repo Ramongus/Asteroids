@@ -1,4 +1,3 @@
-using System;
 using Interfaces;
 using UnityEngine;
 
@@ -18,16 +17,15 @@ namespace MonoBehaviours.PlayerMovementBehaviours
             _rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
-        public void UpdateMovement()
+        public void UpdateMovement(Vector3 direction)
         {
-            MoveForward();
-            Rotate();
+            MoveForward(direction);
+            Rotate(direction);
         }
 
-        private void MoveForward()
+        private void MoveForward(Vector3 direction)
         {
-            var playerDirection = PlayerInputs.Instance.GetMovementVector();
-            if (playerDirection.y > 0)
+            if (direction.y > 0)
             {
                 _rigidbody2D.AddForce(transform.right * thrustersForce);
             }
@@ -43,14 +41,13 @@ namespace MonoBehaviours.PlayerMovementBehaviours
             }
         }
 
-        private void Rotate()
+        private void Rotate(Vector3 direction)
         {
-            var playerDirection = PlayerInputs.Instance.GetMovementVector();
-            if (playerDirection.x > 0f)
+            if (direction.x > 0f)
             {
                 _rigidbody2D.angularVelocity = rotationSpeed * -1;
             }
-            else if (playerDirection.x < 0f)
+            else if (direction.x < 0f)
             {
                 _rigidbody2D.angularVelocity = rotationSpeed;
             }

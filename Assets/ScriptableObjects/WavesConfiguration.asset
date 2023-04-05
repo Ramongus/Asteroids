@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad96b33be824f399191d41f648ed5f2, type: 3}
   m_Name: WavesConfiguration
   m_EditorClassIdentifier: 
-  firstWaveAsteroidsCount: 4
+  firstWaveAsteroidsCount: 2
   extraAsteroidsPerWave: 2

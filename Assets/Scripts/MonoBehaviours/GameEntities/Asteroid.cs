@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using Events;
 using Factories;
@@ -5,11 +6,12 @@ using Interfaces;
 using Repositories;
 using UnityEngine;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace MonoBehaviours.GameEntities
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Asteroid : MonoBehaviour, IDamageableByBullet
+    public class Asteroid : MonoBehaviour, IDamageableByBullet, IPoolObject
     {
         [SerializeField] private float minSpeed = 1f;
         [SerializeField] private float maxSpeed = 5f;
@@ -25,7 +27,7 @@ namespace MonoBehaviours.GameEntities
         private float _rotationSpeed;
         private Rigidbody2D _rigidbody;
 
-        private void Awake()
+        private void OnEnable()
         {
             _direction = VectorUtilities.RandomDirection2D();
             _speed = Random.Range(minSpeed, maxSpeed);
@@ -60,7 +62,22 @@ namespace MonoBehaviours.GameEntities
             }
             AsteroidsRepository.Instance.RemoveAsteroid(this);
             AsteroidsEvents.OnAsteroidDestroyed?.Invoke(mySize);
-            Destroy(gameObject);
+            TurnOff();
+        }
+
+        public void TurnOn()
+        {
+            gameObject.SetActive(true);
+        }
+        
+        public void TurnOff()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public bool IsActive()
+        {
+            return gameObject.activeSelf;
         }
     }
 }
